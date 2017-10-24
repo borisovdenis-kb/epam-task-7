@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 
@@ -60,8 +61,18 @@ public class TestDataCreator {
             ));
     }
 
+    private static <K, V, T> Map<K, V> createMap(
+            List<T> collection, Function<T, K> getKey, Function<T, V> getValue) {
+        return collection
+            .stream()
+            .collect(Collectors.toMap(
+                getKey,
+                getValue
+            ));
+    }
+
     public static List<Book> createBookList(List<Author> authors) {
-        Map<String, Author> authorMap = mapNameToAuthor(authors);
+        Map<String, Author> authorMap = createMap(authors, (a -> a.getName()), (a -> a));
         List<Book> books = new ArrayList<>();
         books.add(
             new Book(
@@ -102,5 +113,32 @@ public class TestDataCreator {
         );
 
         return books;
+    }
+
+    public static List<Publisher> createPublisherList(List<Book> books) {
+        Map<String, Book> booksMap = createMap(books, ((b) -> b.getTitle()), (b -> b));
+        List<Publisher> publishers = new ArrayList<>();
+        publishers.add(
+            new Publisher(
+                "Росмэн",
+                booksMap.get("Стихи о науке"),
+                booksMap.get("Сияние: Наследие")
+            )
+        );
+        publishers.add(
+            new Publisher(
+                "Росмэн",
+                booksMap.get("Уцелевший"),
+                booksMap.get("Космос")
+            )
+        );
+        publishers.add(
+            new Publisher(
+                "ACT",
+                booksMap.get("Уцелевший"),
+                booksMap.get("Буранный полустанок")
+            )
+        );
+        return publishers;
     }
 }
