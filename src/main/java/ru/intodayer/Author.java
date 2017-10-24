@@ -1,10 +1,11 @@
 package ru.intodayer;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
 
-public class Author {
+public class Author  implements Serializable {
     private final String name;
     private final LocalDate birthDay;
     private final Gender gender;

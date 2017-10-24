@@ -52,15 +52,6 @@ public class TestDataCreator {
         return authors;
     }
 
-    private static Map<String, Author> mapNameToAuthor(List<Author> authors) {
-        return authors
-            .stream()
-            .collect(Collectors.toMap(
-                (author) -> author.getName(),
-                (author) -> author
-            ));
-    }
-
     private static <K, V, T> Map<K, V> createMap(
             List<T> collection, Function<T, K> getKey, Function<T, V> getValue) {
         return collection

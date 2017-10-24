@@ -1,11 +1,12 @@
 package ru.intodayer;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 
-public class Publisher {
+public class Publisher implements Serializable {
     private String name;
     private List<Book> publishedBooks = new ArrayList<>();
 

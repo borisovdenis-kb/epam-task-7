@@ -1,12 +1,13 @@
 package ru.intodayer;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 
-public class Book {
+public class Book  implements Serializable {
     private final String title;
     private final LocalDate publishDate;
     private final List<Author> authors = new ArrayList<>();

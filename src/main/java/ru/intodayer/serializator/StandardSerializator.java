@@ -6,9 +6,9 @@ import java.util.List;
 
 
 public class StandardSerializator implements Serializator {
-    private List<Object> serializableObjects = new ArrayList<>();
+    private List<? extends Object> serializableObjects = new ArrayList<>();
 
-    public StandardSerializator(List<Object> serializableObjects) {
+    public StandardSerializator(List<? extends Object> serializableObjects) {
         this.serializableObjects = serializableObjects;
     }
 
