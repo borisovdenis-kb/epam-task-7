@@ -28,8 +28,7 @@ public class SerializatorTester {
         List<Publisher> serializableObjects = getSerializableObject();
         StandardSerializator serializator = new StandardSerializator(serializableObjects);
 
-        String filePath = "serilalizedObjects.dat";
-        System.out.println(getAbsoluteFilePath(filePath));
+        String filePath = "serializedObjects.dat";
         serializator.serialize(getAbsoluteFilePath(filePath));
     }
 }
