@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class CustomJsonSerializator implements Serializator {
+public class CustomJsonSerializer implements Serializer {
     private List<? extends Object> serializableObjects = new ArrayList<>();
 
-    public CustomJsonSerializator(List<? extends Object> serializableObjects) {
+    public CustomJsonSerializer(List<? extends Object> serializableObjects) {
         this.serializableObjects = serializableObjects;
     }
 

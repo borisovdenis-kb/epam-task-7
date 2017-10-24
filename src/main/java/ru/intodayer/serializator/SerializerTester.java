@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class SerializatorTester {
+public class SerializerTester {
     private static final String RESOURCES_PATH = "src\\main\\resources\\";
 
     private static List<Publisher> getSerializableObject() {
@@ -35,7 +35,7 @@ public class SerializatorTester {
 
     public static void testStandardSerializator() throws SerializationException {
         List<Publisher> serializableObjects = getSerializableObject();
-        StandardSerializator serializator = new StandardSerializator(serializableObjects);
+        StandardSerializer serializator = new StandardSerializer(serializableObjects);
         String filePath = "serializedObjects.dat";
         String absoluteFilePath = getAbsoluteFilePath(filePath);
 

@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class StandardSerializator implements Serializator {
+public class StandardSerializer implements Serializer {
     private List<? extends Object> serializableObjects = new ArrayList<>();
 
-    public StandardSerializator(List<? extends Object> serializableObjects) {
+    public StandardSerializer(List<? extends Object> serializableObjects) {
         this.serializableObjects = serializableObjects;
     }
 
