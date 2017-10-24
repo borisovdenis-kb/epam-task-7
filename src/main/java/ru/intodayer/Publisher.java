@@ -26,4 +26,9 @@ public class Publisher implements Serializable {
     public void addBook(Book book) {
         publishedBooks.add(book);
     }
+
+    @Override
+    public String toString() {
+        return "Publisher{" + name + "}";
+    }
 }

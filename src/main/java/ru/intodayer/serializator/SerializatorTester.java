@@ -5,6 +5,7 @@ import ru.intodayer.Book;
 import ru.intodayer.Publisher;
 import ru.intodayer.TestDataCreator;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -24,11 +25,28 @@ public class SerializatorTester {
         );
     }
 
+    private static List<Publisher> castAllObjectsToPublisher(List<Object> objects) {
+        List<Publisher> publishers = new ArrayList<>();
+        for (Object obj: objects) {
+            publishers.add((Publisher) obj);
+        }
+        return publishers;
+    }
+
     public static void testStandardSerializator() throws SerializationException {
         List<Publisher> serializableObjects = getSerializableObject();
         StandardSerializator serializator = new StandardSerializator(serializableObjects);
-
         String filePath = "serializedObjects.dat";
-        serializator.serialize(getAbsoluteFilePath(filePath));
+        String absoluteFilePath = getAbsoluteFilePath(filePath);
+
+        System.out.println("Serializing objects by standard (ObjectInputStream)...\n");
+        serializator.serialize(absoluteFilePath);
+
+        System.out.println("Deserializing objects by standard (ObjectOutputStream): ");
+        List<Publisher> publishers = castAllObjectsToPublisher(serializator.deserialize(absoluteFilePath));
+
+        for (Publisher p: publishers) {
+            System.out.println(p);
+        }
     }
 }
