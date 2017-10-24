@@ -33,20 +33,35 @@ public class SerializerTester {
         return publishers;
     }
 
-    public static void testStandardSerializator() throws SerializationException {
-        List<Publisher> serializableObjects = getSerializableObject();
-        StandardSerializer serializator = new StandardSerializer(serializableObjects);
+    public static void testStandardSerializer() throws SerializationException {
+        Publisher serObject = getSerializableObject().get(0);
+        StandardSerializer serializer = new StandardSerializer(serObject);
         String filePath = "serializedObjects.dat";
         String absoluteFilePath = getAbsoluteFilePath(filePath);
 
         System.out.println("Serializing objects by standard (ObjectInputStream)...\n");
-        serializator.serialize(absoluteFilePath);
+        serializer.serialize(absoluteFilePath);
 
         System.out.println("Deserializing objects by standard (ObjectOutputStream): ");
-        List<Publisher> publishers = castAllObjectsToPublisher(serializator.deserialize(absoluteFilePath));
+        Publisher deserObject = (Publisher) serializer.deserialize(absoluteFilePath);
 
-        for (Publisher p: publishers) {
-            System.out.println(p);
-        }
+        System.out.println(deserObject);
+        System.out.println();
+    }
+
+    public static void testCustomJsonSerializer() throws SerializationException {
+        Publisher serObject = getSerializableObject().get(0);
+        CustomJsonSerializer serializer = new CustomJsonSerializer(serObject);
+        String filePath = "test.json";
+        String absoluteFilePath = getAbsoluteFilePath(filePath);
+
+        System.out.println("Serializing objects by custom json serialization...\n");
+        serializer.serialize(absoluteFilePath);
+
+        System.out.println("Deserializing objects by custom json deserialization: ");
+        Publisher deserObject = (Publisher) serializer.deserialize(absoluteFilePath);
+
+        System.out.println(deserObject);
+        System.out.println();
     }
 }

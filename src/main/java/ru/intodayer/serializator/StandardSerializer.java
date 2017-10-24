@@ -1,12 +1,10 @@
 package ru.intodayer.serializator;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class StandardSerializer implements Serializer {
-    private Object serializableObject = new ArrayList<>();
+    private Object serializableObject;
 
     public StandardSerializer(Object serializableObject) {
         this.serializableObject = serializableObject;
@@ -38,7 +36,7 @@ public class StandardSerializer implements Serializer {
     @Override
     public Object deserialize(String inFilePath) throws SerializationException {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(inFilePath))) {
-            return (Object) ois.readObject();
+            return ois.readObject();
         } catch (Exception e) {
             throw buildException(e, inFilePath);
         }

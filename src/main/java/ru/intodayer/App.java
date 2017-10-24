@@ -7,6 +7,7 @@ import ru.intodayer.serializator.SerializerTester;
 public class App {
     public static void main(String[] args) throws SerializationException {
 //        Analyzer.demonstrateWorkOfAnalyzer();
-        SerializerTester.testStandardSerializator();
+        SerializerTester.testStandardSerializer();
+        SerializerTester.testCustomJsonSerializer();
     }
 }

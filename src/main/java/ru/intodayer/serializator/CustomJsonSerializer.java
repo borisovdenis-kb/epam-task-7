@@ -1,17 +1,23 @@
 package ru.intodayer.serializator;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Stream;
 
 
 public class CustomJsonSerializer implements Serializer {
     private StringBuilder resultJson;
     private Object serializableObject = new ArrayList<>();
 
-    public CustomJsonSerializer(List<? extends Object> serializableObject) {
+    public CustomJsonSerializer(Object serializableObject) {
         this.serializableObject = serializableObject;
         this.resultJson = new StringBuilder();
     }
@@ -25,14 +31,20 @@ public class CustomJsonSerializer implements Serializer {
     }
 
     private boolean isSimple(Field field) {
-        return (field.getType().isPrimitive() || field.getType().isEnum()
-                || isPrimitiveWrapper(field));
+        return Arrays.asList(
+            isPrimitiveWrapper(field),
+            field.getType().isPrimitive(),
+            field.getType().isEnum(),
+            field.getType().equals(String.class),
+            field.getType().equals(LocalDate.class)
+        ).contains(true);
     }
 
     private boolean isIterable(Field field) {
-        List<Class> interfaces = new ArrayList<>();
-        Collections.addAll(interfaces, field.getClass().getInterfaces());
-        return interfaces.contains(Iterable.class);
+//        List<Class> interfaces = new ArrayList<>();
+//        Collections.addAll(interfaces, field.getClass().getInterfaces());
+//        return interfaces.contains(Iterable.class);
+        return Iterable.class.isAssignableFrom(field.getType());
     }
 
     private void setFieldsAccessible(Field[] fields) {
@@ -43,7 +55,7 @@ public class CustomJsonSerializer implements Serializer {
 
     private void objToJson(Object object) throws IllegalAccessException {
         Class classObj = object.getClass();
-        resultJson.append("{\"" + classObj.getName() + "\"}");
+        resultJson.append("{\"" + classObj.getName() + "\":{");
 
         Field[] objFields = classObj.getDeclaredFields();
         setFieldsAccessible(objFields);
@@ -51,14 +63,14 @@ public class CustomJsonSerializer implements Serializer {
         for (Field field: objFields) {
             if (isSimple(field)) {
                 resultJson.append(
-                    String.format("\"%s\":\"%s\"", field.getName(), field.get(object))
+                    String.format("\"%s\":\"%s\"", field.getName(), field.get(object).toString())
                 );
             } else if (isIterable(field)) {
                 for (Object obj: (Iterable) field.get(object)) {
                     objToJson(obj);
                 }
             } else {
-                objToJson(object);
+                objToJson(field.get(object));
             }
         }
 
@@ -67,8 +79,12 @@ public class CustomJsonSerializer implements Serializer {
 
     @Override
     public void serialize(String outFilePath) throws SerializationException {
-        objToJson(serializableObject);
-
+        try (FileWriter fileWriter = new FileWriter(new File(outFilePath))) {
+            objToJson(serializableObject);
+            fileWriter.write(resultJson.toString());
+        } catch (IOException | IllegalAccessException e) {
+            throw new SerializationException(e.getMessage(), e);
+        }
     }
 
     @Override
