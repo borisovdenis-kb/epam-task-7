@@ -23,6 +23,10 @@ public class Publisher implements Serializable {
         this.name = name;
     }
 
+    public List<Book> getPublishedBooks() {
+        return publishedBooks;
+    }
+
     public void addBook(Book book) {
         publishedBooks.add(book);
     }

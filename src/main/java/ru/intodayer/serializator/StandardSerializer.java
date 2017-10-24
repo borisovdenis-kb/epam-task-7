@@ -6,10 +6,10 @@ import java.util.List;
 
 
 public class StandardSerializer implements Serializer {
-    private List<? extends Object> serializableObjects = new ArrayList<>();
+    private Object serializableObject = new ArrayList<>();
 
-    public StandardSerializer(List<? extends Object> serializableObjects) {
-        this.serializableObjects = serializableObjects;
+    public StandardSerializer(Object serializableObject) {
+        this.serializableObject = serializableObject;
     }
 
     private SerializationException buildException(Exception exp, String filePath) {
@@ -29,16 +29,16 @@ public class StandardSerializer implements Serializer {
     @Override
     public void serialize(String outFilePath) throws SerializationException {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(outFilePath))) {
-            oos.writeObject(serializableObjects);
+            oos.writeObject(serializableObject);
         } catch (Exception e) {
             throw buildException(e, outFilePath);
         }
     }
 
     @Override
-    public List<Object> deserialize(String inFilePath) throws SerializationException {
+    public Object deserialize(String inFilePath) throws SerializationException {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(inFilePath))) {
-            return (List<Object>) ois.readObject();
+            return (Object) ois.readObject();
         } catch (Exception e) {
             throw buildException(e, inFilePath);
         }

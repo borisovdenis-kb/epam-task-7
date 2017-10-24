@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface Serializer {
     void serialize(String outFilePath) throws SerializationException;
-    List<Object> deserialize(String inFilePath) throws SerializationException;
+    Object deserialize(String inFilePath) throws SerializationException;
 }

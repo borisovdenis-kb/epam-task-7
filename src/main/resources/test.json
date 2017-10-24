@@ -1,0 +1,23 @@
+{
+    "Publisher": {
+        "name": "",
+        "books": [
+            {
+                "Book": {
+                    "title": "",
+                    "publishDate": "",
+                    "authors": [
+                        {
+                            "Author": {
+                                "name": "",
+                                "birthDay": "",
+                                "deathDay": "",
+                                "gender": ""
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}
