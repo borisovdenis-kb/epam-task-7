@@ -1,1 +1,23 @@
-{"ru.intodayer.models.Publisher":{"name":"Росмэн"{"ru.intodayer.models.Book":{"title":"Уцелевший""publishDate":"1999-02-17"{"ru.intodayer.models.Author":{"name":"Чак Паланик""birthDay":"1962-02-21""gender":"MAN""deathDay":"null"}}}
+{
+    "ru.intodayer.models.Publisher": {
+        "name": "Росмэн",
+        "java.util.List": [
+            {
+                "ru.intodayer.models.Book": {
+                    "title": "Уцелевший",
+                    "publishDate": "1999-02-17",
+                    "java.util.List": [
+                        {
+                            "ru.intodayer.models.Author": {
+                                "name": "Чак Паланик",
+                                "birthDay": "1962-02-21",
+                                "gender": "MAN",
+                                "deathDay": "null"
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

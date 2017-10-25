@@ -6,7 +6,6 @@ import ru.intodayer.models.Gender;
 import ru.intodayer.models.Publisher;
 import ru.intodayer.serializator.CustomJsonSerializer;
 import ru.intodayer.serializator.SerializationException;
-import ru.intodayer.serializator.Serializer;
 import ru.intodayer.serializator.SerializerTester;
 
 import java.time.LocalDate;
