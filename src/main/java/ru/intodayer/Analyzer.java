@@ -1,6 +1,10 @@
 package ru.intodayer;
 
 import javafx.util.Pair;
+import ru.intodayer.models.Author;
+import ru.intodayer.models.Book;
+import ru.intodayer.models.Gender;
+
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.function.Predicate;

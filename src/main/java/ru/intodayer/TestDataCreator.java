@@ -1,5 +1,10 @@
 package ru.intodayer;
 
+import ru.intodayer.models.Author;
+import ru.intodayer.models.Book;
+import ru.intodayer.models.Gender;
+import ru.intodayer.models.Publisher;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;

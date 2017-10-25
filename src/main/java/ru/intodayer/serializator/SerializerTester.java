@@ -1,8 +1,8 @@
 package ru.intodayer.serializator;
 
-import ru.intodayer.Author;
-import ru.intodayer.Book;
-import ru.intodayer.Publisher;
+import ru.intodayer.models.Author;
+import ru.intodayer.models.Book;
+import ru.intodayer.models.Publisher;
 import ru.intodayer.TestDataCreator;
 import java.io.File;
 import java.util.ArrayList;
