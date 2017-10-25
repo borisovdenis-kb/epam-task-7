@@ -12,7 +12,7 @@ import java.util.List;
 
 public class CustomJsonSerializer implements Serializer {
     private StringBuilder resultJson;
-    private Object serializableObject = new ArrayList<>();
+    private Object serializableObject;
 
     public CustomJsonSerializer(Object serializableObject) {
         this.serializableObject = serializableObject;
@@ -56,9 +56,9 @@ public class CustomJsonSerializer implements Serializer {
 
         for (Field field: objFields) {
             if (isSimple(field)) {
-                resultJson.append(
-                    String.format("\"%s\":\"%s\"", field.getName(), field.get(object).toString())
-                );
+                Object fieldValue = field.get(object);
+                String fieldValueStr = fieldValue != null ? fieldValue.toString() : null;
+                resultJson.append(String.format("\"%s\":\"%s\"", field.getName(), fieldValueStr));
             } else if (isIterable(field)) {
                 for (Object obj: (Iterable) field.get(object)) {
                     objToJson(obj);

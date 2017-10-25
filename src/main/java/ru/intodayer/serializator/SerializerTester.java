@@ -18,7 +18,7 @@ public class SerializerTester {
         return TestDataCreator.createPublisherList(books);
     }
 
-    private static String getAbsoluteFilePath(String relativePath) {
+    public static String getAbsoluteFilePath(String relativePath) {
         String workingDir = System.getProperty("user.dir");
         return String.format(
             "%s%s%s%s", workingDir, File.separator, RESOURCES_PATH, relativePath

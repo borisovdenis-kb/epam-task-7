@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
 
-public class Author  implements Serializable {
+public class Author implements Serializable {
     private final String name;
     private final LocalDate birthDay;
     private final Gender gender;
