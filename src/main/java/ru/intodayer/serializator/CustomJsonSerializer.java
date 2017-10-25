@@ -3,14 +3,11 @@ package ru.intodayer.serializator;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.lang.reflect.Field;
 import java.time.LocalDate;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Stream;
 
 
 public class CustomJsonSerializer implements Serializer {
@@ -41,9 +38,6 @@ public class CustomJsonSerializer implements Serializer {
     }
 
     private boolean isIterable(Field field) {
-//        List<Class> interfaces = new ArrayList<>();
-//        Collections.addAll(interfaces, field.getClass().getInterfaces());
-//        return interfaces.contains(Iterable.class);
         return Iterable.class.isAssignableFrom(field.getType());
     }
 
