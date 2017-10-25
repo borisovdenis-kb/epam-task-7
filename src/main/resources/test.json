@@ -4,13 +4,39 @@
         "java.util.List": [
             {
                 "ru.intodayer.models.Book": {
-                    "title": "Уцелевший",
-                    "publishDate": "1999-02-17",
+                    "title": "Стихи о науке",
+                    "publishDate": "1995-01-01",
                     "java.util.List": [
                         {
                             "ru.intodayer.models.Author": {
-                                "name": "Чак Паланик",
-                                "birthDay": "1962-02-21",
+                                "name": "Чингиз Айтматов",
+                                "birthDay": "1928-12-12",
+                                "gender": "MAN",
+                                "deathDay": "2008-06-10"
+                            },
+                            "ru.intodayer.models.Author": {
+                                "name": "Карл Саган",
+                                "birthDay": "1934-11-23",
+                                "gender": "MAN",
+                                "deathDay": "1996-12-20"
+                            }
+                        }
+                    ]
+                },
+                "ru.intodayer.models.Book": {
+                    "title": "Сияние: Наследие",
+                    "publishDate": "2016-01-01",
+                    "java.util.List": [
+                        {
+                            "ru.intodayer.models.Author": {
+                                "name": "Джоан Роулинг",
+                                "birthDay": "1965-07-31",
+                                "gender": "WOMAN",
+                                "deathDay": "null"
+                            },
+                            "ru.intodayer.models.Author": {
+                                "name": "Стивен Кинг",
+                                "birthDay": "1947-09-21",
                                 "gender": "MAN",
                                 "deathDay": "null"
                             }

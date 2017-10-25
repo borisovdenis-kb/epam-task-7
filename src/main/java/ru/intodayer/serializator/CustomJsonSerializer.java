@@ -9,12 +9,12 @@ import java.util.*;
 
 
 public class CustomJsonSerializer implements Serializer {
-    private StringBuilder resultJson;
+    private StringBuilder json;
     private Object serializableObject;
 
     public CustomJsonSerializer(Object serializableObject) {
         this.serializableObject = serializableObject;
-        this.resultJson = new StringBuilder();
+        this.json = new StringBuilder();
     }
 
     private boolean isPrimitiveWrapper(Field field) {
@@ -46,87 +46,65 @@ public class CustomJsonSerializer implements Serializer {
     }
 
     private void addOpenedBracket() {
-        if (resultJson.length() > 0 && resultJson.charAt(resultJson.length()-1) == ',') {
-            resultJson.append("");
+        if (json.length() > 0) {
+            if (json.charAt(json.length()-1) == ',') {
+                json.append("");
+            } else if (json.charAt(json.length()-1) == '}') {
+                json.append(",");
+            } else {
+                json.append("{");
+            }
         } else {
-            resultJson.append("{");
+            json.append("{");
         }
     }
 
     private void addComma(boolean mustAdd) {
         if (mustAdd) {
-            resultJson.append(",");
+            json.append(",");
         }
     }
-
-//    private void objToJson(Object object) throws IllegalAccessException {
-//        Class classObj = object.getClass();
-//
-//        addOpenedBracket();
-//        resultJson.append("\"" + classObj.getName() + "\":{");
-//
-//        Field[] objFields = classObj.getDeclaredFields();
-//        setFieldsAccessible(objFields);
-//
-//        for (Field field: objFields) {
-//            if (isSimple(field)) {
-//                Object fieldValue = field.get(object);
-//                String fieldValueStr = fieldValue != null ? fieldValue.toString() : null;
-//                resultJson.append(String.format("\"%s\":\"%s\"", field.getName(), fieldValueStr));
-//                resultJson.append(",");
-//            } else if (isIterable(field)) {
-//                resultJson.append("\"" + field.getType().getName() + "\":[");
-//                for (Object obj: (Iterable) field.get(object)) {
-//                    objToJson(obj);
-//                }
-//                resultJson.append("}]");
-//            } else {
-//                objToJson(field.get(object));
-//            }
-//        }
-//
-//        resultJson.append("}");
-//    }
 
     private void objToJson(Object object) throws IllegalAccessException {
         Class classObj = object.getClass();
 
         addOpenedBracket();
-        resultJson.append("\"" + classObj.getName() + "\":{");
+        json.append("\"" + classObj.getName() + "\":{");
 
-        List<Field> fieldList = new ArrayList<>();
-        Collections.addAll(fieldList, classObj.getDeclaredFields());
+        List<Field> fields = new ArrayList<>();
+        Collections.addAll(fields, classObj.getDeclaredFields());
 
-        setFieldsAccessible(fieldList);
+        setFieldsAccessible(fields);
 
-        Iterator<Field> itr = fieldList.iterator();
+        Iterator<Field> itr = fields.iterator();
         while (itr.hasNext()){
             Field field = itr.next();
+
             if (isSimple(field)) {
                 Object fieldValue = field.get(object);
                 String fieldValueStr = fieldValue != null ? fieldValue.toString() : null;
-                resultJson.append(String.format("\"%s\":\"%s\"", field.getName(), fieldValueStr));
+                json.append(String.format("\"%s\":\"%s\"", field.getName(), fieldValueStr));
                 addComma(itr.hasNext());
             } else if (isIterable(field)) {
-                resultJson.append("\"" + field.getType().getName() + "\":[");
+                json.append("\"" + field.getType().getName() + "\":[");
                 for (Object obj: (Iterable) field.get(object)) {
                     objToJson(obj);
                 }
-                resultJson.append("}]");
+                json.append("}]");
             } else {
                 objToJson(field.get(object));
             }
         }
 
-        resultJson.append("}");
+        json.append("}");
     }
 
     @Override
     public void serialize(String outFilePath) throws SerializationException {
         try (FileWriter fileWriter = new FileWriter(new File(outFilePath))) {
             objToJson(serializableObject);
-            resultJson.append("}");
-            fileWriter.write(resultJson.toString());
+            json.append("}");
+            fileWriter.write(json.toString());
         } catch (IOException | IllegalAccessException e) {
             throw new SerializationException(e.getMessage(), e);
         }

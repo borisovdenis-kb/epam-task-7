@@ -111,30 +111,14 @@ public class TestDataCreator {
         return books;
     }
 
-    public static List<Publisher> createPublisherList(List<Book> books) {
+    public static Publisher createPublisher() {
+        List<Author> authors = createAuthorList();
+        List<Book> books = createBookList(authors);
         Map<String, Book> booksMap = createMap(books, ((b) -> b.getTitle()), (b -> b));
-        List<Publisher> publishers = new ArrayList<>();
-        publishers.add(
-            new Publisher(
-                "Росмэн",
-                booksMap.get("Стихи о науке"),
-                booksMap.get("Сияние: Наследие")
-            )
+        return new Publisher(
+            "Росмэн",
+            booksMap.get("Стихи о науке"),
+            booksMap.get("Сияние: Наследие")
         );
-        publishers.add(
-            new Publisher(
-                "Росмэн",
-                booksMap.get("Уцелевший"),
-                booksMap.get("Космос")
-            )
-        );
-        publishers.add(
-            new Publisher(
-                "ACT",
-                booksMap.get("Уцелевший"),
-                booksMap.get("Буранный полустанок")
-            )
-        );
-        return publishers;
     }
 }
