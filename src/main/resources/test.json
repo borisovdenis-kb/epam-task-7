@@ -1,20 +1,25 @@
 {
-    "ru.intodayer.models.Publisher": {
+    "ru.intodayer.duplicatemodels.DuplicatePublisher": {
+        "currentBookId": "3",
+        "currentAuthorId": "5",
         "name": "Росмэн",
         "java.util.List": [
             {
-                "ru.intodayer.models.Book": {
+                "ru.intodayer.duplicatemodels.DuplicateBook": {
+                    "id": "ru.intodayer.duplicatemodels.DuplicateBook1",
                     "title": "Стихи о науке",
                     "publishDate": "1995-01-01",
                     "java.util.List": [
                         {
-                            "ru.intodayer.models.Author": {
+                            "ru.intodayer.duplicatemodels.DuplicateAuthor": {
+                                "id": "ru.intodayer.duplicatemodels.DuplicateAuthor1",
                                 "name": "Чингиз Айтматов",
                                 "birthDay": "1928-12-12",
                                 "gender": "MAN",
                                 "deathDay": "2008-06-10"
                             },
-                            "ru.intodayer.models.Author": {
+                            "ru.intodayer.duplicatemodels.DuplicateAuthor": {
+                                "id": "ru.intodayer.duplicatemodels.DuplicateAuthor2",
                                 "name": "Карл Саган",
                                 "birthDay": "1934-11-23",
                                 "gender": "MAN",
@@ -23,18 +28,21 @@
                         }
                     ]
                 },
-                "ru.intodayer.models.Book": {
+                "ru.intodayer.duplicatemodels.DuplicateBook": {
+                    "id": "ru.intodayer.duplicatemodels.DuplicateBook2",
                     "title": "Сияние: Наследие",
                     "publishDate": "2016-01-01",
                     "java.util.List": [
                         {
-                            "ru.intodayer.models.Author": {
+                            "ru.intodayer.duplicatemodels.DuplicateAuthor": {
+                                "id": "ru.intodayer.duplicatemodels.DuplicateAuthor3",
                                 "name": "Джоан Роулинг",
                                 "birthDay": "1965-07-31",
                                 "gender": "WOMAN",
                                 "deathDay": "null"
                             },
-                            "ru.intodayer.models.Author": {
+                            "ru.intodayer.duplicatemodels.DuplicateAuthor": {
+                                "id": "ru.intodayer.duplicatemodels.DuplicateAuthor4",
                                 "name": "Стивен Кинг",
                                 "birthDay": "1947-09-21",
                                 "gender": "MAN",
