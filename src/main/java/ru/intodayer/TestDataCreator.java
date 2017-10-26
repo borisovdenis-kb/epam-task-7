@@ -74,7 +74,8 @@ public class TestDataCreator {
             new Book(
                 "Буранный полустанок",
                 LocalDate.of(1980, 1, 1),
-                authorMap.get("Чингиз Айтматов")
+                authorMap.get("Чингиз Айтматов"),
+                authorMap.get("Стивен Кинг")
             )
         );
         books.add(
@@ -118,7 +119,10 @@ public class TestDataCreator {
         return new Publisher(
             "Росмэн",
             booksMap.get("Стихи о науке"),
-            booksMap.get("Сияние: Наследие")
+            booksMap.get("Буранный полустанок"),
+            booksMap.get("Уцелевший"),
+            booksMap.get("Сияние: Наследие"),
+            booksMap.get("Космос")
         );
     }
 }

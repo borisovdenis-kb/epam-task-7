@@ -1,8 +1,11 @@
 package ru.intodayer.serializator;
 
+import ru.intodayer.duplicatemodels.UniqueObject;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Modifier;
 import java.time.LocalDate;
 import java.lang.reflect.Field;
 import java.util.*;
@@ -11,6 +14,7 @@ import java.util.*;
 public class CustomJsonSerializer implements Serializer {
     private StringBuilder json;
     private Object serializableObject;
+    private Set<UniqueObject> visited = new HashSet<>();
 
     public CustomJsonSerializer(Object serializableObject) {
         this.serializableObject = serializableObject;
@@ -65,6 +69,19 @@ public class CustomJsonSerializer implements Serializer {
         }
     }
 
+    private void goDeeper(Object obj) throws IllegalAccessException {
+        UniqueObject object = (UniqueObject) obj;
+        if (!visited.contains(object)) {
+            visited.add(object);
+            objToJson(object);
+        } else {
+            addOpenedBracket();
+            json.append("\"" + object.getClass().getName() + "\":");
+            json.append("\"" + object.getId() + "\"");
+        }
+        return;
+    }
+
     private void objToJson(Object object) throws IllegalAccessException {
         Class classObj = object.getClass();
 
@@ -80,6 +97,10 @@ public class CustomJsonSerializer implements Serializer {
         while (itr.hasNext()){
             Field field = itr.next();
 
+            if (Modifier.isTransient(field.getModifiers())) {
+                continue;
+            }
+
             if (isSimple(field)) {
                 Object fieldValue = field.get(object);
                 String fieldValueStr = fieldValue != null ? fieldValue.toString() : null;
@@ -88,11 +109,12 @@ public class CustomJsonSerializer implements Serializer {
             } else if (isIterable(field)) {
                 json.append("\"" + field.getType().getName() + "\":[");
                 for (Object obj: (Iterable) field.get(object)) {
-                    objToJson(obj);
+//                    objToJson(obj);
+                    goDeeper(obj);
                 }
                 json.append("}]");
             } else {
-                objToJson(field.get(object));
+                goDeeper(field.get(object));
             }
         }
 
