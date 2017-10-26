@@ -17,7 +17,7 @@ import java.util.*;
 public class CustomJsonSerializer implements Serializer {
     private StringBuilder json;
     private Object serializableObject;
-    private Set<UniqueObject> visited = new HashSet<>();
+    private List<UniqueObject> visited = new ArrayList<>();
 
     public CustomJsonSerializer(Object serializableObject) {
         this.serializableObject = serializableObject;

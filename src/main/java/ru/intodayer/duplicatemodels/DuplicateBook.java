@@ -25,6 +25,10 @@ public class DuplicateBook extends UniqueObject {
         return newAuthor;
     }
 
+    public List<DuplicateAuthor> getAuthors() {
+        return authors;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
