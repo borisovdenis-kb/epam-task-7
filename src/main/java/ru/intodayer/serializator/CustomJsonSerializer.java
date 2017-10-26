@@ -69,7 +69,7 @@ public class CustomJsonSerializer implements Serializer {
         }
     }
 
-    private void goDeeper(Object obj) throws IllegalAccessException {
+    private void goDeeper(Object obj, boolean mustAddComma) throws IllegalAccessException {
         UniqueObject object = (UniqueObject) obj;
         if (!visited.contains(object)) {
             visited.add(object);
@@ -78,6 +78,7 @@ public class CustomJsonSerializer implements Serializer {
             addOpenedBracket();
             json.append("\"" + object.getClass().getName() + "\":");
             json.append("\"" + object.getId() + "\"");
+            addComma(mustAddComma);
         }
         return;
     }
@@ -110,11 +111,11 @@ public class CustomJsonSerializer implements Serializer {
                 json.append("\"" + field.getType().getName() + "\":[");
                 for (Object obj: (Iterable) field.get(object)) {
 //                    objToJson(obj);
-                    goDeeper(obj);
+                    goDeeper(obj, itr.hasNext());
                 }
                 json.append("}]");
             } else {
-                goDeeper(field.get(object));
+                goDeeper(field.get(object), itr.hasNext());
             }
         }
 
@@ -126,7 +127,8 @@ public class CustomJsonSerializer implements Serializer {
         try (FileWriter fileWriter = new FileWriter(new File(outFilePath))) {
             objToJson(serializableObject);
             json.append("}");
-            fileWriter.write(json.toString());
+            String resultJson = json.toString().replaceAll("\\\"\\{","\",");
+            fileWriter.write(resultJson);
         } catch (IOException | IllegalAccessException e) {
             throw new SerializationException(e.getMessage(), e);
         }

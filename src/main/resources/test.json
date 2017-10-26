@@ -28,14 +28,13 @@
                     "publishDate": "1980-01-01",
                     "java.util.List": [
                         {
-                            "ru.intodayer.duplicatemodels.DuplicateAuthor": "DuplicateAuthor3"
-                        {
                             "ru.intodayer.duplicatemodels.DuplicateAuthor": {
                                 "name": "Стивен Кинг",
                                 "birthDay": "1947-09-21",
                                 "gender": "MAN",
                                 "deathDay": "null"
-                            }
+                            },
+                            "ru.intodayer.duplicatemodels.DuplicateAuthor": "DuplicateAuthor4"
                         }
                     ]
                 },
