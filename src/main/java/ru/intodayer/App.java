@@ -17,6 +17,6 @@ public class App {
 
         CustomJsonSerializer serializer = new CustomJsonSerializer(dupPublisher);
         serializer.serialize(absoluteFilePath);
-        serializer.deserialize(absoluteFilePath);
+//        serializer.deserialize(absoluteFilePath);
     }
 }

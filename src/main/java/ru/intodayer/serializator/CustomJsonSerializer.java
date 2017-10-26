@@ -2,9 +2,6 @@ package ru.intodayer.serializator;
 
 import ru.intodayer.duplicatemodels.UniqueObject;
 import ru.intodayer.serializator.validator.Validator;
-import sun.misc.IOUtils;
-import sun.nio.ch.IOUtil;
-
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -49,6 +46,10 @@ public class CustomJsonSerializer implements Serializer {
         return Iterable.class.isAssignableFrom(field.getType());
     }
 
+    private boolean isMap(Field field) {
+        return field.getType().equals(Map.class);
+    }
+
     private void setFieldsAccessible(List<Field> fields) {
         for (Field field: fields) {
             field.setAccessible(true);
@@ -75,6 +76,10 @@ public class CustomJsonSerializer implements Serializer {
         }
     }
 
+    private void addQuotedStrToJson(String key) {
+        json.append("\"" + key + "\"");
+    }
+
     private void goDeeper(Object obj, boolean mustAddComma) throws IllegalAccessException {
         UniqueObject object = (UniqueObject) obj;
         if (!visited.contains(object)) {
@@ -82,11 +87,24 @@ public class CustomJsonSerializer implements Serializer {
             objToJson(object);
         } else {
             addOpenedBracket();
-            json.append("\"" + object.getClass().getName() + "\":");
-            json.append("\"" + object.getId() + "\"");
+            addQuotedStrToJson(object.getClass().getName());
+            json.append(":");
+            addQuotedStrToJson(object.getId());
             addComma(mustAddComma);
         }
         return;
+    }
+
+    private void mapToJson(Map<String, UniqueObject> map) throws IllegalAccessException {
+        Iterator itr = map.entrySet().iterator();
+        while (itr.hasNext()) {
+            Map.Entry<String, UniqueObject> pair = (Map.Entry) itr.next();
+            addQuotedStrToJson(pair.getKey());
+            json.append(":");
+            objToJson(pair.getValue());
+            json.append("}");
+            addComma(itr.hasNext());
+        }
     }
 
     private void objToJson(Object object) throws IllegalAccessException {
@@ -113,6 +131,11 @@ public class CustomJsonSerializer implements Serializer {
                 String fieldValueStr = fieldValue != null ? fieldValue.toString() : null;
                 json.append(String.format("\"%s\":\"%s\"", field.getName(), fieldValueStr));
                 addComma(itr.hasNext());
+            } else if (isMap(field)) {
+                addQuotedStrToJson(field.getType().getName());
+                json.append(":{");
+                mapToJson((Map) field.get(object));
+                json.append("},");
             } else if (isIterable(field)) {
                 json.append("\"" + field.getType().getName() + "\":[");
                 for (Object obj: (Iterable) field.get(object)) {

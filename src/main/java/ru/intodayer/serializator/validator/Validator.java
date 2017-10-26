@@ -6,7 +6,14 @@ import java.util.Stack;
 public class Validator {
     private Stack<Character> stack = new Stack<>();
 
+    private void throwIncorrectNestingException() {
+        throw new IncorrectJsonException("Incorrect nesting.");
+    }
+
     private void stackPop(Character c, int charPosition) {
+        if (stack.empty()) {
+            throwIncorrectNestingException();
+        }
         if (stack.peek() == c) {
             stack.pop();
         } else {
@@ -24,13 +31,13 @@ public class Validator {
                     stack.push(x);
                     break;
                 case '}':
-                    stackPop(x, i);
+                    stackPop('{', i);
                     break;
                 case '[':
                     stack.push(x);
                     break;
                 case ']':
-                    stackPop(x, i);
+                    stackPop('[', i);
                     break;
                 case '"':
                     if (stack.peek() == x) {
@@ -42,7 +49,7 @@ public class Validator {
             }
         }
         if (!stack.empty()) {
-            throw new IncorrectJsonException("Incorrect nesting.");
+            throwIncorrectNestingException();
         }
     }
 }
