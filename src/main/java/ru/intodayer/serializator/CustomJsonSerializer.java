@@ -1,11 +1,17 @@
 package ru.intodayer.serializator;
 
 import ru.intodayer.duplicatemodels.UniqueObject;
+import ru.intodayer.serializator.validator.Validator;
+import sun.misc.IOUtils;
+import sun.nio.ch.IOUtil;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Modifier;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.lang.reflect.Field;
 import java.util.*;
@@ -110,7 +116,6 @@ public class CustomJsonSerializer implements Serializer {
             } else if (isIterable(field)) {
                 json.append("\"" + field.getType().getName() + "\":[");
                 for (Object obj: (Iterable) field.get(object)) {
-//                    objToJson(obj);
                     goDeeper(obj, itr.hasNext());
                 }
                 json.append("}]");
@@ -134,8 +139,21 @@ public class CustomJsonSerializer implements Serializer {
         }
     }
 
+    private static String readWholeFile(String fileName) throws IOException {
+        return new String(Files.readAllBytes(Paths.get(fileName)));
+    }
+
     @Override
     public Object deserialize(String inFilePath) throws SerializationException {
+        Validator validator = new Validator();
+
+        try (FileReader fileReader = new FileReader(new File(inFilePath))) {
+            String json = readWholeFile(inFilePath);
+            validator.validateJson(json);
+        } catch (IOException e) {
+            throw new SerializationException(e.getMessage(), e);
+        }
+
         return null;
     }
 }
