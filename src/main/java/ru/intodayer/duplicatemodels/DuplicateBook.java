@@ -12,6 +12,9 @@ public class DuplicateBook extends UniqueObject {
     private LocalDate publishDate;
     private List<DuplicateAuthor> authors = new ArrayList<>();
 
+    public DuplicateBook() {
+    }
+
     public DuplicateBook(Book book) {
         this.title = book.getTitle();
         this.publishDate = book.getPublishDate();
@@ -22,6 +25,18 @@ public class DuplicateBook extends UniqueObject {
         authors.add(newAuthor);
 
         return newAuthor;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setPublishDate(LocalDate publishDate) {
+        this.publishDate = publishDate;
+    }
+
+    public void setAuthors(List<DuplicateAuthor> authors) {
+        this.authors = authors;
     }
 
     public List<DuplicateAuthor> getAuthors() {

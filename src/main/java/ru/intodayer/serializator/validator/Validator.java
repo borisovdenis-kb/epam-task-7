@@ -1,55 +1,57 @@
 package ru.intodayer.serializator.validator;
 
-import java.util.Stack;
 
+import ru.intodayer.models.Gender;
+
+import java.lang.reflect.Array;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Validator {
-    private Stack<Character> stack = new Stack<>();
-
-    private void throwIncorrectNestingException() {
-        throw new IncorrectJsonException("Incorrect nesting.");
-    }
-
-    private void stackPop(Character c, int charPosition) {
-        if (stack.empty()) {
-            throwIncorrectNestingException();
-        }
-        if (stack.peek() == c) {
-            stack.pop();
-        } else {
-            throw new IncorrectJsonException(
-                String.format("Unexpected symbol '%s' at %s position", c, charPosition)
-            );
-        }
-    }
+    private NestingStack nestingStack = new NestingStack();
 
     public void validateJson(String json) {
         for (int i = 0; i < json.length(); i++) {
             Character x = json.charAt(i);
-            switch (x) {
-                case '{':
-                    stack.push(x);
-                    break;
-                case '}':
-                    stackPop('{', i);
-                    break;
-                case '[':
-                    stack.push(x);
-                    break;
-                case ']':
-                    stackPop('[', i);
-                    break;
-                case '"':
-                    if (stack.peek() == x) {
-                        stack.pop();
-                    } else {
-                        stack.push(x);
-                    }
-                default: break;
-            }
+            nestingStack.handleNextElement(x, i);
         }
-        if (!stack.empty()) {
-            throwIncorrectNestingException();
+        if (!nestingStack.isEmpty()) {
+            nestingStack.throwIncorrectNestingException();
+        }
+    }
+
+    public static String validateNameOrTitle(String str) {
+        if (str.length() == 0) {
+            throw new DeserializationException("Author's name or Book's title cant be empty string.");
+        }
+        if (str.equals("null")) {
+            throw new DeserializationException("Author's name or Book's title cant be null.");
+        }
+        return str;
+    }
+
+    public static LocalDate validateLocalDate(String str, boolean canBeNull) {
+//        List<Integer> date = Arrays
+//            .stream(str.split("-"))
+//            .map((s) -> Integer.parseInt(s))
+//            .collect(Collectors.toList());
+        if (canBeNull && str.equals("null")) {
+            return null;
+        }
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return LocalDate.parse(str, dtf);
+    }
+
+    public static Gender validateGender(String str) {
+        if (str.equals("MAN")) {
+            return Gender.MAN;
+        } else if (str.equals("WOMAN")) {
+            return Gender.WOMAN;
+        } else {
+            throw new DeserializationException("Gender can be MAN or WOMAN.");
         }
     }
 }

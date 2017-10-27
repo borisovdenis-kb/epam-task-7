@@ -6,16 +6,41 @@ import java.time.LocalDate;
 
 
 public class DuplicateAuthor extends UniqueObject {
-    private final String name;
-    private final LocalDate birthDay;
-    private final Gender gender;
+    private String name;
+    private LocalDate birthDay;
+    private Gender gender;
     private LocalDate deathDay;
+
+    public DuplicateAuthor(){
+    }
 
     public DuplicateAuthor(Author author) {
         this.name = author.getName();
         this.birthDay = author.getBirthDay();
         this.deathDay = author.getDeathDay();
         this.gender = author.getGender();
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setBirthDay(LocalDate birthDay) {
+        this.birthDay = birthDay;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public void setDeathDay(LocalDate deathDay) {
+        this.deathDay = deathDay;
+    }
+
+    public Author getAuthorFromThis() {
+        return new Author(
+            this.name, this.birthDay, this.deathDay, this.gender
+        );
     }
 
     @Override
