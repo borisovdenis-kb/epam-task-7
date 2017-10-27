@@ -1,6 +1,7 @@
 package ru.intodayer.serializator;
 
 import ru.intodayer.duplicatemodels.UniqueObject;
+import ru.intodayer.models.Publisher;
 import ru.intodayer.serializator.validator.Validator;
 import java.io.File;
 import java.io.FileReader;
@@ -12,6 +13,7 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.lang.reflect.Field;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 public class CustomJsonSerializer implements Serializer {
@@ -167,6 +169,51 @@ public class CustomJsonSerializer implements Serializer {
         return new String(Files.readAllBytes(Paths.get(fileName)));
     }
 
+    private String deleteExtraSymbols(String json) {
+        return json
+                .replaceAll(":", "")
+                .replaceAll(",", "");
+    }
+
+    private boolean isBracket(Character c) {
+        List<Character> brackets = Arrays.asList('{', '}', '[', ']');
+        return brackets.contains(c);
+    }
+
+    private List<String> stringToSymbols(String s) {
+        List<String> symbols = new ArrayList<>();
+        for (int i = 0; i < s.length(); i++) {
+            symbols.add(String.valueOf(s.charAt(i)));
+        }
+        return symbols;
+    }
+
+    private List<String> getTokensFromJson(String json) {
+        String[] tokens = deleteExtraSymbols(json).split("\\\"");
+        List<String> processed = new ArrayList<>();
+        Collections.addAll(processed, tokens);
+
+        List<String> result = processed
+            .stream()
+            .filter((s) -> !s.equals(""))
+            .flatMap((s) -> {
+                if (isBracket(s.charAt(0)) && s.length() > 1) {
+                    return stringToSymbols(s).stream();
+                }
+                List<String> singleStr = Arrays.asList(s);
+                return singleStr.stream();
+            })
+            .collect(Collectors.toList());
+
+        System.out.println(result);
+        return result;
+    }
+
+    private Publisher buildPublisherFromJson(String json) {
+        List<String> tokens = getTokensFromJson(json);
+        return null;
+    }
+
     @Override
     public Object deserialize(String inFilePath) throws SerializationException {
         Validator validator = new Validator();
@@ -174,6 +221,12 @@ public class CustomJsonSerializer implements Serializer {
         try (FileReader fileReader = new FileReader(new File(inFilePath))) {
             String json = readWholeFile(inFilePath);
             validator.validateJson(json);
+
+            buildPublisherFromJson(json);
+            // Publisher publisher = buildPublisherFromJson(json);
+
+            // validator.validateObjectModel(Publisher publisher);
+
         } catch (IOException e) {
             throw new SerializationException(e.getMessage(), e);
         }

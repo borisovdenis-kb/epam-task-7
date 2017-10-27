@@ -12,6 +12,6 @@ public class UniqueObject {
     public String getId() {
 //        return id;
 //        return String.valueOf(this.getClass().getSimpleName() + this.hashCode());
-        return this.getClass().getSimpleName() + this.hashCode();
+        return this.getClass().getSimpleName() + "@" + this.hashCode();
     }
 }

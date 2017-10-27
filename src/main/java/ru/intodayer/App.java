@@ -1,15 +1,10 @@
 package ru.intodayer;
 
-import ru.intodayer.duplicatemodels.DuplicateAuthor;
 import ru.intodayer.duplicatemodels.DuplicatePublisher;
-import ru.intodayer.models.Author;
-import ru.intodayer.models.Gender;
 import ru.intodayer.models.Publisher;
 import ru.intodayer.serializator.CustomJsonSerializer;
 import ru.intodayer.serializator.SerializationException;
 import ru.intodayer.serializator.SerializerTester;
-
-import java.time.LocalDate;
 
 
 public class App {
@@ -22,6 +17,6 @@ public class App {
 
         CustomJsonSerializer serializer = new CustomJsonSerializer(dupPublisher);
         serializer.serialize(absoluteFilePath);
-//        serializer.deserialize(absoluteFilePath);
+        serializer.deserialize(absoluteFilePath);
     }
 }
