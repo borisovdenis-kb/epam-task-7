@@ -1,10 +1,10 @@
 package ru.intodayer.serializator;
 
 import ru.intodayer.duplicatemodels.DuplicateAuthor;
+import ru.intodayer.duplicatemodels.DuplicateBook;
 import ru.intodayer.duplicatemodels.UniqueObject;
 import ru.intodayer.models.Author;
 import ru.intodayer.models.Book;
-import ru.intodayer.models.Gender;
 import ru.intodayer.models.Publisher;
 import ru.intodayer.serializator.validator.NestingStack;
 import ru.intodayer.serializator.validator.Validator;
@@ -232,18 +232,6 @@ public class CustomJsonSerializer implements Serializer {
         return authorsAndBooks;
     }
 
-//    private void setOrskipFieldToAuthor(DuplicateAuthor author, String str) {
-//        if (str.equals("name")) {
-//            author.setName(Validator.validateNameOrTitle(str));
-//        } else if (str.equals("birthDay")) {
-//           author.setBirthDay(Validator.validateLocalDate(str, false));
-//        } else if (str.equals("deathDay")) {
-//            author.setDeathDay(Validator.validateLocalDate(str, true));
-//        } else if (str.equals("gender")) {
-//            author.setGender(Validator.validateGender(str));
-//        }
-//    }
-
     private Map<String, Author> getAuthorsMap(List<String> tokens) {
         Map<String, Author> authorMap = new HashMap<>();
         int i = 0;
@@ -275,16 +263,51 @@ public class CustomJsonSerializer implements Serializer {
         return authorMap;
     }
 
-    private List<Book> getPublishedBooks(List<String> tokens) {
+    private Map<String, Book> getBookMap(List<String> tokens) {
         List<String> authorsAndBooks = getAuthorsAndBooks(tokens);
         Map<String, Author> authorsMap = getAuthorsMap(authorsAndBooks);
-        return null;
+
+        Map<String, Book> bookMap = new HashMap<>();
+        int i = 0;
+        while (i != authorsAndBooks.size()-1) {
+            if (authorsAndBooks.get(i).contains("DuplicateBook@")) {
+                String key = authorsAndBooks.get(i);
+                DuplicateBook dupBook = new DuplicateBook();
+
+                NestingStack nestingStack = new NestingStack(authorsAndBooks.get(++i));
+                while (!nestingStack.isEmpty()) {
+                    i++;
+                    String str = authorsAndBooks.get(i);
+                    nestingStack.handleNextElement(str.charAt(0), i);
+                    i++;
+                    if (str.equals("title")) {
+                        dupBook.setTitle(Validator.validateNameOrTitle(authorsAndBooks.get(i)));
+                    } else if (str.equals("publishDate")) {
+                        dupBook.setPublishDate(Validator.validateLocalDate(authorsAndBooks.get(i), false));
+                    } else if (str.equals("java.util.List")) {
+                        NestingStack deeperNestingStack = new NestingStack(authorsAndBooks.get(i));
+                        while (!deeperNestingStack.isEmpty()) {
+                            i++;
+                            String newStr = authorsAndBooks.get(i);
+                            deeperNestingStack.handleNextElement(newStr.charAt(0), i);
+                            if (newStr.contains("DuplicateAuthor")) {
+                                i++;
+                                dupBook.addAuthor(authorsMap.get(authorsAndBooks.get(i)));
+                            }
+                        }
+                    }
+                }
+                bookMap.put(key, dupBook.getBookFromThis());
+            }
+            i++;
+        }
+        return bookMap;
     }
 
     private Publisher buildPublisherFromJson(String json) {
         List<String> tokens = getTokensFromJson(json);
         String publisherName = getPublisherName(tokens);
-        List<Book> publishedBooks = getPublishedBooks(tokens);
+        Map<String, Book> publishedBooks = getBookMap(tokens);
 
         return null;
     }

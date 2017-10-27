@@ -5,6 +5,7 @@ import ru.intodayer.models.Book;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class DuplicateBook extends UniqueObject {
@@ -41,6 +42,26 @@ public class DuplicateBook extends UniqueObject {
 
     public List<DuplicateAuthor> getAuthors() {
         return authors;
+    }
+
+    private Author[] castObjectArrayToAuthorArray(Object[] objects) {
+        Author[] authors = new Author[objects.length];
+        for (int i = 0; i < objects.length; i++) {
+            authors[i] = (Author) objects[i];
+        }
+        return authors;
+    }
+
+    public Book getBookFromThis() {
+        Object[] objects = this.authors
+            .stream()
+            .map((a) -> a.getAuthorFromThis())
+            .collect(Collectors.toList()).toArray();
+        return new Book(
+            this.title,
+            this.publishDate,
+            castObjectArrayToAuthorArray(objects)
+        );
     }
 
     @Override

@@ -2,13 +2,9 @@ package ru.intodayer.serializator.validator;
 
 
 import ru.intodayer.models.Gender;
-
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+
 
 public class Validator {
     private NestingStack nestingStack = new NestingStack();
@@ -34,10 +30,6 @@ public class Validator {
     }
 
     public static LocalDate validateLocalDate(String str, boolean canBeNull) {
-//        List<Integer> date = Arrays
-//            .stream(str.split("-"))
-//            .map((s) -> Integer.parseInt(s))
-//            .collect(Collectors.toList());
         if (canBeNull && str.equals("null")) {
             return null;
         }
