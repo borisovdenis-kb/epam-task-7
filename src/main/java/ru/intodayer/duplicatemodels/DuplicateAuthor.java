@@ -18,14 +18,6 @@ public class DuplicateAuthor extends UniqueObject {
         this.gender = author.getGender();
     }
 
-    public void setId(int authorId) {
-        this.id = this.getClass().getSimpleName() + authorId;
-    }
-
-    public String getId() {
-        return id;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -44,5 +36,10 @@ public class DuplicateAuthor extends UniqueObject {
         result = 31 * result + birthDay.hashCode();
         result = 31 * result + gender.hashCode();
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

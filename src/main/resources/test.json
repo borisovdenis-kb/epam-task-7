@@ -2,15 +2,15 @@
     "ru.intodayer.duplicatemodels.DuplicatePublisher": {
         "name": "Росмэн",
         "java.util.Map": {
-            "DuplicateAuthor4": {
+            "DuplicateAuthor-200590563": {
                 "ru.intodayer.duplicatemodels.DuplicateAuthor": {
-                    "name": "Карл Саган",
-                    "birthDay": "1934-11-23",
+                    "name": "Стивен Кинг",
+                    "birthDay": "1947-09-21",
                     "gender": "MAN",
-                    "deathDay": "1996-12-20"
+                    "deathDay": "null"
                 }
             },
-            "DuplicateAuthor2": {
+            "DuplicateAuthor-775257224": {
                 "ru.intodayer.duplicatemodels.DuplicateAuthor": {
                     "name": "Чингиз Айтматов",
                     "birthDay": "1928-12-12",
@@ -18,79 +18,15 @@
                     "deathDay": "2008-06-10"
                 }
             },
-            "DuplicateBook2": {
-                "ru.intodayer.duplicatemodels.DuplicateBook": {
-                    "title": "Буранный полустанок",
-                    "publishDate": "1980-01-01",
-                    "java.util.List": [
-                        {
-                            "ru.intodayer.duplicatemodels.DuplicateAuthor": {
-                                "name": "Стивен Кинг",
-                                "birthDay": "1947-09-21",
-                                "gender": "MAN",
-                                "deathDay": "null"
-                            },
-                            "ru.intodayer.duplicatemodels.DuplicateAuthor": {
-                                "name": "Чингиз Айтматов",
-                                "birthDay": "1928-12-12",
-                                "gender": "MAN",
-                                "deathDay": "2008-06-10"
-                            }
-                        }
-                    ]
+            "DuplicateAuthor-845920276": {
+                "ru.intodayer.duplicatemodels.DuplicateAuthor": {
+                    "name": "Карл Саган",
+                    "birthDay": "1934-11-23",
+                    "gender": "MAN",
+                    "deathDay": "1996-12-20"
                 }
             },
-            "DuplicateBook3": {
-                "ru.intodayer.duplicatemodels.DuplicateBook": {
-                    "title": "Уцелевший",
-                    "publishDate": "1999-02-17",
-                    "java.util.List": [
-                        {
-                            "ru.intodayer.duplicatemodels.DuplicateAuthor": {
-                                "name": "Чак Паланик",
-                                "birthDay": "1962-02-21",
-                                "gender": "MAN",
-                                "deathDay": "null"
-                            }
-                        }
-                    ]
-                }
-            },
-            "DuplicateBook1": {
-                "ru.intodayer.duplicatemodels.DuplicateBook": {
-                    "title": "Стихи о науке",
-                    "publishDate": "1995-01-01",
-                    "java.util.List": [
-                        {
-                            "ru.intodayer.duplicatemodels.DuplicateAuthor": "DuplicateAuthor2",
-                            "ru.intodayer.duplicatemodels.DuplicateAuthor": {
-                                "name": "Карл Саган",
-                                "birthDay": "1934-11-23",
-                                "gender": "MAN",
-                                "deathDay": "1996-12-20"
-                            }
-                        }
-                    ]
-                }
-            },
-            "DuplicateBook4": {
-                "ru.intodayer.duplicatemodels.DuplicateBook": {
-                    "title": "Сияние: Наследие",
-                    "publishDate": "2016-01-01",
-                    "java.util.List": [
-                        {
-                            "ru.intodayer.duplicatemodels.DuplicateAuthor": {
-                                "name": "Джоан Роулинг",
-                                "birthDay": "1965-07-31",
-                                "gender": "WOMAN",
-                                "deathDay": "null"
-                            },
-                            "ru.intodayer.duplicatemodels.DuplicateAuthor": "DuplicateAuthor12"
-                        }
-                    ]
-                }
-            },
-            "DuplicateAuthor11": {
+            "DuplicateAuthor-849405342": {
                 "ru.intodayer.duplicatemodels.DuplicateAuthor": {
                     "name": "Джоан Роулинг",
                     "birthDay": "1965-07-31",
@@ -98,18 +34,7 @@
                     "deathDay": "null"
                 }
             },
-            "DuplicateBook5": {
-                "ru.intodayer.duplicatemodels.DuplicateBook": {
-                    "title": "Космос",
-                    "publishDate": "1980-01-01",
-                    "java.util.List": [
-                        {
-                            "ru.intodayer.duplicatemodels.DuplicateAuthor": "DuplicateAuthor13"
-                        }
-                    ]
-                }
-            },
-            "DuplicateAuthor9": {
+            "DuplicateAuthor641491606": {
                 "ru.intodayer.duplicatemodels.DuplicateAuthor": {
                     "name": "Чак Паланик",
                     "birthDay": "1962-02-21",
@@ -117,65 +42,72 @@
                     "deathDay": "null"
                 }
             },
-            "DuplicateAuthor6": {
-                "ru.intodayer.duplicatemodels.DuplicateAuthor": {
-                    "name": "Стивен Кинг",
-                    "birthDay": "1947-09-21",
-                    "gender": "MAN",
-                    "deathDay": "null"
-                }
-            }
-        },
-        "java.util.List": [
-            {
-                "ru.intodayer.duplicatemodels.DuplicateBook": {
-                    "title": "Стихи о науке",
-                    "publishDate": "1995-01-01",
-                    "java.util.List": [
-                        {
-                            "ru.intodayer.duplicatemodels.DuplicateAuthor": "DuplicateAuthor2",
-                            "ru.intodayer.duplicatemodels.DuplicateAuthor": "DuplicateAuthor4"
-                        }
-                    ]
-                },
+            "DuplicateBook-46823295": {
                 "ru.intodayer.duplicatemodels.DuplicateBook": {
                     "title": "Буранный полустанок",
                     "publishDate": "1980-01-01",
                     "java.util.List": [
                         {
-                            "ru.intodayer.duplicatemodels.DuplicateAuthor": "DuplicateAuthor6",
-                            "ru.intodayer.duplicatemodels.DuplicateAuthor": "DuplicateAuthor7"
+                            "ru.intodayer.duplicatemodels.DuplicateAuthor": "DuplicateAuthor-200590563",
+                            "ru.intodayer.duplicatemodels.DuplicateAuthor": "DuplicateAuthor-775257224"
                         }
                     ]
-                },
+                }
+            },
+            "DuplicateBook178269139": {
                 "ru.intodayer.duplicatemodels.DuplicateBook": {
-                    "title": "Уцелевший",
-                    "publishDate": "1999-02-17",
+                    "title": "Стихи о науке",
+                    "publishDate": "1995-01-01",
                     "java.util.List": [
                         {
-                            "ru.intodayer.duplicatemodels.DuplicateAuthor": "DuplicateAuthor9"
+                            "ru.intodayer.duplicatemodels.DuplicateAuthor": "DuplicateAuthor-775257224",
+                            "ru.intodayer.duplicatemodels.DuplicateAuthor": "DuplicateAuthor-845920276"
                         }
                     ]
-                },
-                "ru.intodayer.duplicatemodels.DuplicateBook": {
-                    "title": "Сияние: Наследие",
-                    "publishDate": "2016-01-01",
-                    "java.util.List": [
-                        {
-                            "ru.intodayer.duplicatemodels.DuplicateAuthor": "DuplicateAuthor11",
-                            "ru.intodayer.duplicatemodels.DuplicateAuthor": "DuplicateAuthor12"
-                        }
-                    ]
-                },
+                }
+            },
+            "DuplicateBook28718562": {
                 "ru.intodayer.duplicatemodels.DuplicateBook": {
                     "title": "Космос",
                     "publishDate": "1980-01-01",
                     "java.util.List": [
                         {
-                            "ru.intodayer.duplicatemodels.DuplicateAuthor": "DuplicateAuthor13"
+                            "ru.intodayer.duplicatemodels.DuplicateAuthor": "DuplicateAuthor-845920276"
                         }
                     ]
                 }
+            },
+            "DuplicateBook345295251": {
+                "ru.intodayer.duplicatemodels.DuplicateBook": {
+                    "title": "Уцелевший",
+                    "publishDate": "1999-02-17",
+                    "java.util.List": [
+                        {
+                            "ru.intodayer.duplicatemodels.DuplicateAuthor": "DuplicateAuthor641491606"
+                        }
+                    ]
+                }
+            },
+            "DuplicateBook525062833": {
+                "ru.intodayer.duplicatemodels.DuplicateBook": {
+                    "title": "Сияние: Наследие",
+                    "publishDate": "2016-01-01",
+                    "java.util.List": [
+                        {
+                            "ru.intodayer.duplicatemodels.DuplicateAuthor": "DuplicateAuthor-849405342",
+                            "ru.intodayer.duplicatemodels.DuplicateAuthor": "DuplicateAuthor-200590563"
+                        }
+                    ]
+                }
+            }
+        },
+        "java.util.List": [
+            {
+                "ru.intodayer.duplicatemodels.DuplicateBook": "DuplicateBook1069179655",
+                "ru.intodayer.duplicatemodels.DuplicateBook": "DuplicateBook1549547580",
+                "ru.intodayer.duplicatemodels.DuplicateBook": "DuplicateBook986786887",
+                "ru.intodayer.duplicatemodels.DuplicateBook": "DuplicateBook-237288596",
+                "ru.intodayer.duplicatemodels.DuplicateBook": "DuplicateBook-817201684"
             }
         ]
     }

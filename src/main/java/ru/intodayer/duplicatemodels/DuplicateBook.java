@@ -17,9 +17,8 @@ public class DuplicateBook extends UniqueObject {
         this.publishDate = book.getPublishDate();
     }
 
-    public DuplicateAuthor addAuthor(Author author, int authorId) {
+    public DuplicateAuthor addAuthor(Author author) {
         DuplicateAuthor newAuthor = new DuplicateAuthor(author);
-        newAuthor.setId(authorId);
         authors.add(newAuthor);
 
         return newAuthor;
@@ -47,5 +46,10 @@ public class DuplicateBook extends UniqueObject {
         result = 31 * result + publishDate.hashCode();
         result = 31 * result + authors.hashCode();
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return title;
     }
 }

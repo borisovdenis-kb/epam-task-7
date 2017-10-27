@@ -95,13 +95,14 @@ public class CustomJsonSerializer implements Serializer {
         return;
     }
 
-    private void mapToJson(Map<String, UniqueObject> map) throws IllegalAccessException {
+    private void mapToJson(Map<Integer, UniqueObject> map) throws IllegalAccessException {
         Iterator itr = map.entrySet().iterator();
         while (itr.hasNext()) {
             Map.Entry<String, UniqueObject> pair = (Map.Entry) itr.next();
-            addQuotedStrToJson(pair.getKey());
+            addQuotedStrToJson(String.valueOf(pair.getKey()));
             json.append(":");
-            objToJson(pair.getValue());
+//            objToJson(pair.getValue());
+            goDeeper(pair.getValue(), itr.hasNext());
             json.append("}");
             addComma(itr.hasNext());
         }

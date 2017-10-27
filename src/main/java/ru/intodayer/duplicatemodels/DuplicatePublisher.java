@@ -3,16 +3,14 @@ package ru.intodayer.duplicatemodels;
 import ru.intodayer.models.Author;
 import ru.intodayer.models.Book;
 import ru.intodayer.models.Publisher;
-
 import java.util.*;
 
 
 public class DuplicatePublisher {
     private transient int currentBookId = 1;
     private transient int currentAuthorId = 1;
-    private transient Set<UniqueObject> alreadyAdded = new HashSet<>();
     private String name;
-    private Map<String, UniqueObject> uniqueObjectMap = new HashMap<>();
+    private Map<String, UniqueObject> uniqueObjectMap = new TreeMap<>();
     private List<DuplicateBook> publishedBooks = new ArrayList<>();
 
     public DuplicatePublisher(Publisher publisher) {
@@ -31,7 +29,6 @@ public class DuplicatePublisher {
     private DuplicateBook addBook(Book book) {
         DuplicateBook newBook = new DuplicateBook(book);
         publishedBooks.add(newBook);
-
         return newBook;
     }
 
@@ -39,22 +36,29 @@ public class DuplicatePublisher {
         uniqueObjectMap.put(object.getId(), object);
     }
 
+    private void showUniqueObjectsMap() {
+        Iterator itr = uniqueObjectMap.entrySet().iterator();
+        while (itr.hasNext()) {
+            Map.Entry<String, UniqueObject> pair = (Map.Entry) itr.next();
+            System.out.println(pair.getKey() + ": " + pair.getValue());
+        }
+    }
+
     private void setAllInnerObjects(Publisher publisher) {
         for (Book book: publisher.getPublishedBooks()) {
             DuplicateBook newDupBook = addBook(book);
-            if (!alreadyAdded.contains(newDupBook)) {
+            if (!uniqueObjectMap.containsKey(newDupBook.getId())) {
                 newDupBook.setId(getNextBookId());
                 addUniqueObject(newDupBook);
-                alreadyAdded.add(newDupBook);
             }
             for (Author author: book.getAuthors()) {
-                DuplicateAuthor newDupAuthor = newDupBook.addAuthor(author, getNextAuthorId());
-                if (!alreadyAdded.contains(newDupAuthor)) {
+                DuplicateAuthor newDupAuthor = newDupBook.addAuthor(author);
+                if (!uniqueObjectMap.containsKey(newDupAuthor.getId())) {
                     newDupAuthor.setId(getNextAuthorId());
                     addUniqueObject(newDupAuthor);
-                    alreadyAdded.add(newDupAuthor);
                 }
             }
         }
+        showUniqueObjectsMap();
     }
 }
